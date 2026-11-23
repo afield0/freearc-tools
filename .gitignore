@@ -1,0 +1,12 @@
+__pycache__/
+*.py[cod]
+*.filepart
+*.bin
+/extracted/
+/demo-new/
+/freearc_demo_output/
+/freearc_research/
+/freearc_fixtures/*.arc
+!/freearc_fixtures/genuine_exe_lzma.arc
+!/freearc_fixtures/genuine_delta_lzma.arc
+!/freearc_fixtures/genuine_lzma_lc0lp2pb0.arc

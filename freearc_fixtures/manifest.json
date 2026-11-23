@@ -1,0 +1,41 @@
+{
+  "repository": "https://github.com/n0madic/go-unarc",
+  "files": {
+    "genuine_m0.arc": {
+      "size": 30173,
+      "sha256": "ffa6cafc381e8d86ba324489e1bfe8c09616eba13dd9c65691fd78d273a0206e",
+      "pointer_url": "https://raw.githubusercontent.com/n0madic/go-unarc/2236294cc234701a7fb38ddd82f3d26cb83d64a5/testdata/genuine/archives/genuine_m0.arc"
+    },
+    "genuine_rep_lzma.arc": {
+      "size": 143756,
+      "sha256": "d2ca311c3b01eb1195655e73d400cac0fad9ed3a6eb8e13a69c280f9d3735440",
+      "pointer_url": "https://raw.githubusercontent.com/n0madic/go-unarc/2236294cc234701a7fb38ddd82f3d26cb83d64a5/testdata/genuine/archives/genuine_rep_lzma.arc"
+    },
+    "genuine_delta_lzma.arc": {
+      "size": 54366,
+      "sha256": "b5b312b6e9500624a686a33a7986352faca3876c4c15170f01a06e4a345c5f8b",
+      "pointer_url": "https://raw.githubusercontent.com/n0madic/go-unarc/2236294cc234701a7fb38ddd82f3d26cb83d64a5/testdata/genuine/archives/genuine_delta_lzma.arc"
+    },
+    "genuine_exe_lzma.arc": {
+      "size": 125867,
+      "sha256": "87f1888de9ef16c5b7da97e09741e685013233d5a038aa91ebad5e100338b32b",
+      "pointer_url": "https://raw.githubusercontent.com/n0madic/go-unarc/2236294cc234701a7fb38ddd82f3d26cb83d64a5/testdata/genuine/archives/genuine_exe_lzma.arc"
+    },
+    "genuine_lzma_lc0lp2pb0.arc": {
+      "size": 168267,
+      "sha256": "c97f7e702d8d2e69b0bd2772960bf5dc7fcda3ae5ccfcf9a2e102ef15b9356bf",
+      "pointer_url": "https://raw.githubusercontent.com/n0madic/go-unarc/2236294cc234701a7fb38ddd82f3d26cb83d64a5/testdata/genuine/archives/genuine_lzma_lc0lp2pb0.arc"
+    },
+    "genuine_lzma_64kb.arc": {
+      "size": 64504,
+      "sha256": "7fd89c198ef9bc9e9144ff8657e88b0229b23bc7dd09296267c7297e11872ae4",
+      "pointer_url": "https://raw.githubusercontent.com/n0madic/go-unarc/2236294cc234701a7fb38ddd82f3d26cb83d64a5/testdata/genuine/archives/genuine_lzma_64kb.arc"
+    },
+    "genuine_4x4_lzma.arc": {
+      "size": 188432,
+      "sha256": "38c4792548ddf6bad8a5f985f6fccdcd20c326c2853c8843a644adb9fa6cfd5b",
+      "pointer_url": "https://raw.githubusercontent.com/n0madic/go-unarc/2236294cc234701a7fb38ddd82f3d26cb83d64a5/testdata/genuine/archives/genuine_4x4_lzma.arc"
+    }
+  },
+  "revision": "2236294cc234701a7fb38ddd82f3d26cb83d64a5"
+}
