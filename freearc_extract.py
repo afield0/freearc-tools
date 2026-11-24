@@ -289,7 +289,7 @@ def main(argv=None):
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument('command', choices=('list', 'test', 'extract'))
     p.add_argument('archive')
-    p.add_argument('-d', '--destination', help='new destination directory (extract only)')
+    p.add_argument('-d', '--destination', help='new output directory (default: beside the archive, named after its stem)')
     p.add_argument('--include', action='append', default=[], help='output glob; all files are still CRC-tested')
     p.add_argument('--allow-filepart', action='store_true', help='permit a .filepart name only if final footer and referenced data are present')
     p.add_argument('--json', action='store_true')
@@ -298,8 +298,6 @@ def main(argv=None):
     p.add_argument('--max-intermediate-bytes', type=int, default=1024**4)
     p.add_argument('--timeout', type=float, default=0, help='seconds; 0 disables deadline')
     args = p.parse_args(argv)
-    if args.command == 'extract' and not args.destination:
-        p.error('extract requires --destination naming a new directory')
     if args.command != 'extract' and (args.destination or args.include):
         p.error('--destination and --include apply only to extract')
     if min(args.max_memory_mib, args.max_output_bytes, args.max_intermediate_bytes) <= 0 or args.timeout < 0:
@@ -309,6 +307,13 @@ def main(argv=None):
     try:
         with fmt.open_shared(args.archive) as f:
             archive = Archive(f, args.archive, limits, args.allow_filepart)
+            if args.command == 'extract' and args.destination is None:
+                path = archive.path
+                base = path.with_suffix('') if path.suffix.lower() == '.filepart' else path
+                name = base.stem
+                if name in ('.', '..', path.name):
+                    name = path.name + '.extracted'
+                args.destination = path.with_name(name)
             result = archive.report() if args.command == 'list' else archive.process(args.destination, args.include)
         result['exit_code'] = 0
     except Unsupported as e:

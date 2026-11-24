@@ -21,10 +21,14 @@ Python 3.12+ is the target; tests also pass on the available Python 3.11.4.
 python freearc_extract.py list archive.bin
 python freearc_extract.py list archive.bin --json
 python freearc_extract.py test archive.bin
-python freearc_extract.py extract archive.bin --destination extracted
+python freearc_extract.py extract archive.bin
 python freearc_extract.py extract archive.bin -d selected --include "docs/*"
 ```
 
+By default, `archive.bin` extracts to `archive/` beside the input. For an
+extensionless input, the folder name ends in `.extracted`. With
+`--allow-filepart`, `archive.bin.filepart` also extracts to `archive/`.
+Use `-d` or `--destination` to choose another folder.
 The destination must **not exist**, and its parent must exist. Output is staged
 in a temporary sibling directory. Only after every file's size and CRC, every
 decoder's end of stream, and the input's final size/mtime check pass is that

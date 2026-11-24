@@ -4,13 +4,13 @@
 
 ## Extract an archive
 
-From the project directory, run one command with the path to your archive and a new output folder. FreeArc archives can also use a `.bin` extension.
+From the project directory, pass the path to your FreeArc archive:
 
 ```sh
-python freearc_extract.py extract "downloads/archive.bin" -d "unpacked"
+python freearc_extract.py extract "downloads/archive.bin"
 ```
 
-The extractor creates `unpacked` after every file passes its size and CRC32 checks. The destination's parent directory must already exist.
+This creates `downloads/archive/` after every file passes its size and CRC32 checks. To choose a different folder, add `-d unpacked`. If the destination already exists, extraction stops.
 
 To try it with the included FreeArc 0.67 archive, run the command below. It creates `extracted/bin/x86.bin` (262,144 bytes).
 

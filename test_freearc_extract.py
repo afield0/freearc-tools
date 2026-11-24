@@ -94,6 +94,20 @@ class ExtractorTests(unittest.TestCase):
             self.assertTrue(a.process()['file_contents_verified'])
         self.assertEqual(list(self.root.iterdir()), [self.path])
 
+    def test_cli_default_destination(self):
+        for filename, folder in [('game.v1.arc', 'game.v1'), ('plain', 'plain.extracted'),
+                                 ('download.bin.filepart', 'download')]:
+            with self.subTest(filename=filename):
+                source = self.root / filename
+                source.write_bytes(make_archive([('a', b'abc', False)]))
+                args = ['extract', str(source), '--json']
+                if filename.endswith('.filepart'):
+                    args.append('--allow-filepart')
+                with contextlib.redirect_stdout(io.StringIO()):
+                    self.assertEqual(ex.main(args), 0)
+                    self.assertEqual(ex.main(args), 2)
+                self.assertEqual((self.root / folder / 'a').read_bytes(), b'abc')
+
     def test_paths_and_collisions_rejected(self):
         for path in ('../escape', '/absolute', 'C:/escape', '\\server\\share',
                      'a/../../escape', 'CON', 'aux.txt', 'COM¹', 'file:stream',
