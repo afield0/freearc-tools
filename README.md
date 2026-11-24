@@ -1,18 +1,31 @@
 # FreeArc tools
 
-Inspect FreeArc archives and verify or extract files when their compression methods are supported. Both commands run from a checkout with Python 3.11 or later and the standard library. All codec implementations are Python. No installer, external decoder, or plugin is required.
+**Pure Python, standard library only.** Inspect, verify, and extract supported FreeArc archives with Python 3.11 or later. All included codecs are implemented in Python. There are no third-party packages to install.
 
-## Quick start
+## Extract an archive
 
-Run these commands from the project directory. The bundled archive contains one 262,144-byte file and was produced by FreeArc 0.67.
+From the project directory, run one command with the path to your archive and a new output folder. FreeArc archives can also use a `.bin` extension.
 
 ```sh
-python freearc_extract.py list freearc_fixtures/genuine_exe_lzma.arc
-python freearc_extract.py test freearc_fixtures/genuine_exe_lzma.arc
+python freearc_extract.py extract "downloads/archive.bin" -d "unpacked"
+```
+
+The extractor creates `unpacked` after every file passes its size and CRC32 checks. The destination's parent directory must already exist.
+
+To try it with the included FreeArc 0.67 archive, run the command below. It creates `extracted/bin/x86.bin` (262,144 bytes).
+
+```sh
 python freearc_extract.py extract freearc_fixtures/genuine_exe_lzma.arc -d extracted
 ```
 
-Choose a new destination under an existing directory. Extraction checks each file's size and CRC32 before publishing the destination. Use `test` for the same integrity checks without keeping output.
+## Inspect or verify
+
+```sh
+python freearc_extract.py list archive.bin
+python freearc_extract.py test archive.bin
+```
+
+`list` shows the archive directory. `test` verifies file sizes and CRC32s without keeping extracted files.
 
 For a growing download, the inspector can report a validated header before the directory arrives.
 
