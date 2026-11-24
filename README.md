@@ -7,7 +7,7 @@
 From the project directory, pass the path to your FreeArc archive:
 
 ```sh
-python freearc_extract.py extract "downloads/archive.bin"
+python freearc_extract.py x "downloads/archive.bin"
 ```
 
 This creates `downloads/archive/` after every file passes its size and CRC32 checks. To choose a different folder, add `-d unpacked`. If the destination already exists, extraction stops.
@@ -34,6 +34,15 @@ python freearc_inspect.py scan archive.bin.filepart
 python freearc_inspect.py headers archive.bin.filepart --json
 python freearc_inspect.py list archive.bin --verbose
 ```
+
+## CLI shortcuts
+
+| Tool | Commands | Options |
+| --- | --- | --- |
+| Extractor | `x` extract, `l` list, `t` test | `-d` destination, `-i` include glob (repeatable), `-f` allow filepart, `-j` JSON, `-m` memory limit (MiB), `-o` output limit (bytes), `-b` intermediate limit (bytes), `-t` timeout (seconds) |
+| Inspector | `i` info, `l` list, `s` scan, `h` headers | `-j` JSON, `-v` verbose, `-b` scan length (bytes), `-o` scan offset (bytes) |
+
+Use `-h` on either tool for help with all short and long spellings.
 
 ## Format support
 

@@ -333,13 +333,16 @@ def inspect(path, scan_bytes=65536, scan_offset=0):
 
 def main(argv=None):
     p = argparse.ArgumentParser(description=__doc__)
-    p.add_argument('command', choices=['info', 'list', 'scan', 'headers'])
+    aliases = {'i': 'info', 'l': 'list', 's': 'scan', 'h': 'headers'}
+    p.add_argument('command', choices=(*aliases.values(), *aliases),
+                   help=', '.join(f'{name} ({short})' for short, name in aliases.items()))
     p.add_argument('archive')
-    p.add_argument('--json', action='store_true', help='machine-readable report')
-    p.add_argument('--verbose', action='store_true')
-    p.add_argument('--scan-bytes', type=int, default=65536, help='bytes to search (default 65536); tail 4096 also checked')
-    p.add_argument('--scan-offset', type=int, default=0)
+    p.add_argument('-j', '--json', action='store_true', help='machine-readable report')
+    p.add_argument('-v', '--verbose', action='store_true')
+    p.add_argument('-b', '--scan-bytes', type=int, default=65536, help='bytes to search (default 65536); tail 4096 also checked')
+    p.add_argument('-o', '--scan-offset', type=int, default=0)
     a = p.parse_args(argv)
+    a.command = aliases.get(a.command, a.command)
     if a.scan_bytes < 0 or a.scan_offset < 0:
         p.error('scan ranges must be nonnegative')
     try:

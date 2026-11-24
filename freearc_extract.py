@@ -287,17 +287,20 @@ class Archive:
 
 def main(argv=None):
     p = argparse.ArgumentParser(description=__doc__)
-    p.add_argument('command', choices=('list', 'test', 'extract'))
+    aliases = {'x': 'extract', 'l': 'list', 't': 'test'}
+    p.add_argument('command', choices=(*aliases.values(), *aliases),
+                   help=', '.join(f'{name} ({short})' for short, name in aliases.items()))
     p.add_argument('archive')
     p.add_argument('-d', '--destination', help='new output directory (default: beside the archive, named after its stem)')
-    p.add_argument('--include', action='append', default=[], help='output glob; all files are still CRC-tested')
-    p.add_argument('--allow-filepart', action='store_true', help='permit a .filepart name only if final footer and referenced data are present')
-    p.add_argument('--json', action='store_true')
-    p.add_argument('--max-memory-mib', type=int, default=256, help='large-buffer limit per codec stage')
-    p.add_argument('--max-output-bytes', type=int, default=1024**4)
-    p.add_argument('--max-intermediate-bytes', type=int, default=1024**4)
-    p.add_argument('--timeout', type=float, default=0, help='seconds; 0 disables deadline')
+    p.add_argument('-i', '--include', action='append', default=[], help='output glob; all files are still CRC-tested')
+    p.add_argument('-f', '--allow-filepart', action='store_true', help='permit a .filepart name only if final footer and referenced data are present')
+    p.add_argument('-j', '--json', action='store_true')
+    p.add_argument('-m', '--max-memory-mib', type=int, default=256, help='large-buffer limit per codec stage')
+    p.add_argument('-o', '--max-output-bytes', type=int, default=1024**4)
+    p.add_argument('-b', '--max-intermediate-bytes', type=int, default=1024**4)
+    p.add_argument('-t', '--timeout', type=float, default=0, help='seconds; 0 disables deadline')
     args = p.parse_args(argv)
+    args.command = aliases.get(args.command, args.command)
     if args.command != 'extract' and (args.destination or args.include):
         p.error('--destination and --include apply only to extract')
     if min(args.max_memory_mib, args.max_output_bytes, args.max_intermediate_bytes) <= 0 or args.timeout < 0:
